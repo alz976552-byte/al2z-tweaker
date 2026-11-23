@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs (they go to GitHub Releases, not to the repository)
+dist/
+dist*/
+for-github-tweaker-release/
+*.exe
+*.zip
+*.blockmap
+
+# Local junk
+*.log
+.DS_Store
+Thumbs.db

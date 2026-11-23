@@ -1,0 +1,90 @@
+{
+  "name": "al2ztweaker",
+  "productName": "Al2zTweaker",
+  "version": "1.0.0",
+  "description": "Windows tweaker with UWP removal capability",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Al2z",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.al2z.tweaker",
+    "productName": "Al2zTweaker",
+    "directories": {
+      "output": "dist"
+    },
+    "publish": null,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico",
+      "requestedExecutionLevel": "highestAvailable"
+    },
+    "nsis": {
+      "language": "1033",
+      "perMachine": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Al2zTweaker",
+      "deleteAppDataOnUninstall": true
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "files": [
+      "index.html",
+      "styles.css",
+      "app.js",
+      "main.js",
+      "preload.js",
+      "utils.js",
+      "icon.ico",
+      "icon.png",
+      "node_modules/**/*",
+      "!node_modules/**/test",
+      "!node_modules/**/tests",
+      "!node_modules/**/docs",
+      "!node_modules/**/*.md",
+      "!node_modules/**/*.ts"
+    ]
+  },
+  "allowScripts": {
+    "electron@28.3.3": true
+  }
+}

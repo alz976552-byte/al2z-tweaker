@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Al2zTweaker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ ICON SPRITE ============ -->
+  <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1.4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.2-7 10-4-1.8-7-5.4-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 2v3M14 2v3M10 19v3M14 19v3M2 10h3M2 14h3M19 10h3M19 14h3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2 6M20 5v6h-6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l4 4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
+    <symbol id="i-command" viewBox="0 0 24 24"><path d="M9 6a3 3 0 1 0-3 3h3V6zM15 6a3 3 0 1 1 3 3h-3V6zM9 18a3 3 0 1 1-3-3h3v3zM15 18a3 3 0 1 0 3-3h-3v3zM9 9h6v6H9z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9a14 14 0 0 1 18 0M6 12.5a9 9 0 0 1 12 0M9.5 16a4.5 4.5 0 0 1 5 0"/><circle cx="12" cy="19" r="1"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-minimize" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/><path d="M9.5 3.8l2.5 1.2 2.5-1.2M9.5 20.2l2.5-1.2 2.5 1.2"/></symbol>
+
+    <!-- Medieval overgrown vine cluster -->
+    <symbol id="vine-cluster" viewBox="0 0 220 220">
+      <path d="M-10 8 C55 2 98 38 84 94 C70 150 28 162 42 218" fill="none" stroke="#2f6b3a" stroke-width="8" stroke-linecap="round"/>
+      <path d="M-6 26 C44 22 72 56 62 102 C52 144 22 158 32 204" fill="none" stroke="#5a9c4f" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+      <path d="M18 4 C42 44 34 78 12 100" fill="none" stroke="#3b7a3e" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#3f8a45" opacity=".92">
+        <ellipse cx="58" cy="30" rx="16" ry="7" transform="rotate(-25 58 30)"/>
+        <ellipse cx="30" cy="58" rx="14" ry="6" transform="rotate(35 30 58)"/>
+        <ellipse cx="82" cy="68" rx="15" ry="7" transform="rotate(-38 82 68)"/>
+        <ellipse cx="48" cy="112" rx="16" ry="7" transform="rotate(28 48 112)"/>
+        <ellipse cx="76" cy="134" rx="13" ry="6" transform="rotate(-30 76 134)"/>
+        <ellipse cx="28" cy="158" rx="15" ry="7" transform="rotate(42 28 158)"/>
+        <ellipse cx="56" cy="182" rx="14" ry="6" transform="rotate(-22 56 182)"/>
+        <ellipse cx="20" cy="94" rx="10" ry="5" transform="rotate(-50 20 94)"/>
+      </g>
+      <g fill="#68b45a" opacity=".8">
+        <ellipse cx="66" cy="44" rx="9" ry="4" transform="rotate(30 66 44)"/>
+        <ellipse cx="38" cy="84" rx="9" ry="4" transform="rotate(-35 38 84)"/>
+        <ellipse cx="62" cy="148" rx="9" ry="4" transform="rotate(40 62 148)"/>
+        <ellipse cx="36" cy="190" rx="8" ry="4" transform="rotate(-28 36 190)"/>
+      </g>
+      <g fill="#b8455c" opacity=".85">
+        <circle cx="94" cy="54" r="5"/><circle cx="16" cy="132" r="4"/><circle cx="68" cy="166" r="4"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <div class="app-shell">
+    <!-- ============ TITLE BAR ============ -->
+    <header class="titlebar" id="titlebar">
+      <div class="titlebar-left">
+        <button class="icon-btn" id="menuBtn" title="Menu" aria-label="Open menu"><svg class="icon"><use href="#i-menu"></use></svg></button>
+        <div class="brand"><span class="brand-mark"><svg class="icon"><use href="#i-sparkles"></use></svg></span><b>Al2zTweaker</b><span class="brand-tag">LIQUID EDITION</span></div>
+      </div>
+      <button class="search-trigger" id="searchTrigger"><svg class="icon"><use href="#i-search"></use></svg><span>Search tweaks, pages…</span><kbd>Ctrl K</kbd></button>
+      <div class="titlebar-right">
+        <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme"><svg class="icon"><use href="#i-moon"></use></svg></button>
+        <span class="titlebar-divider"></span>
+        <div class="traffic-lights" aria-label="Window controls">
+          <button class="traffic traffic-close" data-win="close" title="Close" aria-label="Close"><svg class="icon"><use href="#i-close"></use></svg></button>
+          <button class="traffic traffic-minimize" data-win="minimize" title="Minimize" aria-label="Minimize"><svg class="icon"><use href="#i-minimize"></use></svg></button>
+          <button class="traffic traffic-maximize" data-win="maximize" title="Maximize" aria-label="Maximize"><svg class="icon"><use href="#i-maximize"></use></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- ============ SIDEBAR ============ -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-profile">
+          <span class="avatar">A</span>
+          <span class="sidebar-profile-copy"><b>Al2zTweaker</b><span>System optimizer</span></span>
+          <span class="online-dot" title="Ready"></span>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <button class="nav-item active" data-page="overview"><svg class="icon"><use href="#i-grid"></use></svg>Overview</button>
+          <button class="nav-item" data-page="tweaks"><svg class="icon"><use href="#i-sliders"></use></svg>Tweaks<span class="nav-badge" id="navTweakCount">19</span></button>
+          <button class="nav-item" data-page="performance"><svg class="icon"><use href="#i-gauge"></use></svg>Performance</button>
+          <button class="nav-item" data-page="activation"><svg class="icon"><use href="#i-check"></use></svg>Windows Activation</button>
+          <button class="nav-item" data-page="quicksetup"><svg class="icon"><use href="#i-bolt"></use></svg>Quick Setup</button>
+          <button class="nav-item" data-page="updates"><svg class="icon"><use href="#i-refresh"></use></svg>Windows Update</button>
+          <button class="nav-item" data-page="recovery"><svg class="icon"><use href="#i-command"></use></svg>System &amp; Recovery</button>
+          <button class="nav-item" data-page="privacy"><svg class="icon"><use href="#i-shield"></use></svg>Privacy</button>
+          <button class="nav-item" data-page="uwp"><svg class="icon"><use href="#i-sparkles"></use></svg>UWP Apps<span class="nav-badge">NEW</span></button>
+          <button class="nav-item" data-page="programs"><svg class="icon"><use href="#i-folder"></use></svg>Programs</button>
+          <button class="nav-item" data-page="presets"><svg class="icon"><use href="#i-bolt"></use></svg>Presets</button>
+          <button class="nav-item" data-page="settings"><svg class="icon"><use href="#i-settings"></use></svg>Settings</button>
+          <button class="nav-item" data-page="about"><svg class="icon"><use href="#i-info"></use></svg>About</button>
+        </nav>
+
+        <div class="sidebar-card score-card">
+          <div class="score-top"><span>System score</span><b id="sidebarScore">0%</b></div>
+          <svg class="ring" viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="15"/><circle class="ring-fg" id="sidebarRing" cx="20" cy="20" r="15"/></svg>
+          <p id="sidebarHint">0 of 19 tweaks</p>
+        </div>
+
+        <div class="sidebar-card sidebar-actions">
+          <button class="btn btn-primary btn-block" id="recommendedBtn"><svg class="icon"><use href="#i-sparkles"></use></svg>Apply recommended</button>
+          <button class="btn btn-ghost btn-block" id="restoreBtn"><svg class="icon"><use href="#i-shield"></use></svg>Create restore point</button>
+        </div>
+        <div class="sidebar-footer">v1.0.0 · Made by Al2z</div>
+      </aside>
+      <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+      <!-- ============ CONTENT ============ -->
+      <main class="content" id="content">
+
+        <!-- OVERVIEW -->
+        <section class="page active" id="page-overview">
+          <div class="page-head">
+            <div class="page-head-copy"><span class="eyebrow">Dashboard</span><h1>Good to see you, Al2z</h1><p>Your Windows is running smooth. Fine-tune it in one click.</p></div>
+            <div class="head-actions"><button class="btn btn-primary" id="boostBtn"><svg class="icon"><use href="#i-bolt"></use></svg><span>Boost system</span></button></div>
+          </div>
+          <div class="stat-grid">
+            <article class="glass-card stat-card"><div class="stat-top"><span class="stat-icon purple"><svg class="icon"><use href="#i-cpu"></use></svg></span><span class="stat-label">CPU</span></div><div class="stat-mid"><b id="statCpu">24%</b><svg class="mini-ring" viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="18"/><circle class="ring-fg" id="ringCpu" cx="20" cy="20" r="18"/></svg></div><span class="stat-foot">Processor load</span></article>
+            <article class="glass-card stat-card"><div class="stat-top"><span class="stat-icon pink"><svg class="icon"><use href="#i-sliders"></use></svg></span><span class="stat-label">RAM</span></div><div class="stat-mid"><b id="statRam">62%</b><svg class="mini-ring" viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="18"/><circle class="ring-fg pink-stroke" id="ringRam" cx="20" cy="20" r="18"/></svg></div><span class="stat-foot">Memory usage</span></article>
+            <article class="glass-card stat-card"><div class="stat-top"><span class="stat-icon cyan"><svg class="icon"><use href="#i-monitor"></use></svg></span><span class="stat-label">GPU</span></div><div class="stat-mid"><b id="statGpu">18%</b><svg class="mini-ring" viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="18"/><circle class="ring-fg cyan-stroke" id="ringGpu" cx="20" cy="20" r="18"/></svg></div><span class="stat-foot">Graphics load</span></article>
+            <article class="glass-card stat-card"><div class="stat-top"><span class="stat-icon amber"><svg class="icon"><use href="#i-folder"></use></svg></span><span class="stat-label">DISK</span></div><div class="stat-mid"><b id="statDisk">41%</b><svg class="mini-ring" viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="18"/><circle class="ring-fg amber-stroke" id="ringDisk" cx="20" cy="20" r="18"/></svg></div><span class="stat-foot">Storage activity</span></article>
+          </div>
+
+          <div class="two-col">
+            <article class="glass-card chart-card">
+              <div class="card-head"><div><span class="eyebrow">Live monitor</span><h2>Resource activity</h2></div><div class="chart-value" id="chartValue">24% / 18%</div></div>
+              <div class="chart-wrap"><canvas id="overviewChart"></canvas></div>
+              <div class="legend"><span><i class="dot purple-dot"></i>CPU</span><span><i class="dot cyan-dot"></i>GPU</span><span class="legend-note">Updated every 2 seconds</span></div>
+            </article>
+            <article class="glass-card quick-card">
+              <div class="card-head"><div><span class="eyebrow">Quick actions</span><h2>One-click setup</h2></div></div>
+              <button class="quick-row" data-nav="tweaks"><span class="quick-icon purple"><svg class="icon"><use href="#i-sliders"></use></svg></span><span><b>Browse all tweaks</b><small>19 tweaks in 4 categories</small></span><svg class="icon chev"><use href="#i-chevron"></use></svg></button>
+              <button class="quick-row" data-nav="uwp"><span class="quick-icon cyan"><svg class="icon"><use href="#i-sparkles"></use></svg></span><span><b>Remove UWP apps</b><small>Clean Microsoft Store bloatware</small></span><svg class="icon chev"><use href="#i-chevron"></use></svg></button>
+              <button class="quick-row" data-nav="programs"><span class="quick-icon pink"><svg class="icon"><use href="#i-folder"></use></svg></span><span><b>Uninstall programs</b><small>Classic Win32 applications</small></span><svg class="icon chev"><use href="#i-chevron"></use></svg></button>
+            </article>
+          </div>
+
+          <article class="glass-card process-card">
+            <div class="card-head"><div><span class="eyebrow">Top processes</span><h2>Most active right now</h2></div><span class="live-pill"><i></i>LIVE</span></div>
+            <div id="processList"></div>
+          </article>
+        </section>
+
+        <!-- TWEAKS -->
+        <section class="page" id="page-tweaks">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Tweaks</span><h1>Make Windows yours</h1><p>Switch tweaks on or off. Your choices are saved automatically.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="resetTweaks"><svg class="icon"><use href="#i-refresh"></use></svg>Reset all</button></div>
+          </div>
+          <div class="toolbar">
+            <label class="search-field"><svg class="icon"><use href="#i-search"></use></svg><input id="tweakSearch" type="search" placeholder="Search tweaks…" autocomplete="off" /></label>
+            <span class="result-count"><b id="tweakCount">19</b> tweaks</span>
+          </div>
+          <div class="chips" id="filterChips"></div>
+          <div class="tweak-grid" id="tweakGrid"></div>
+          <div class="empty-state" id="tweakEmpty" hidden><svg class="icon"><use href="#i-search"></use></svg><b>No tweaks found</b><span>Try a different search or category.</span></div>
+        </section>
+
+        <!-- PERFORMANCE -->
+        <section class="page" id="page-performance">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Performance</span><h1>Speed that you can see</h1><p>Monitor resources and apply performance tweaks.</p></div>
+          </div>
+          <div class="two-col">
+            <article class="glass-card chart-card">
+              <div class="card-head"><div><span class="eyebrow">Live monitor</span><h2>CPU &amp; memory</h2></div><div class="chart-value" id="perfValue">24% / 62%</div></div>
+              <div class="chart-wrap"><canvas id="perfChart"></canvas></div>
+              <div class="legend"><span><i class="dot purple-dot"></i>CPU</span><span><i class="dot pink-dot"></i>RAM</span></div>
+            </article>
+            <article class="glass-card bars-card">
+              <div class="card-head"><div><span class="eyebrow">Current load</span><h2>Resource meters</h2></div></div>
+              <div class="meter"><div class="meter-label"><span>CPU</span><b id="perfCpu">24%</b></div><span class="meter-bar"><i id="barCpu"></i></span></div>
+              <div class="meter"><div class="meter-label"><span>RAM</span><b id="perfRam">62%</b></div><span class="meter-bar"><i id="barRam" class="pink-bar"></i></span></div>
+              <div class="meter"><div class="meter-label"><span>GPU</span><b id="perfGpu">18%</b></div><span class="meter-bar"><i id="barGpu" class="cyan-bar"></i></span></div>
+              <div class="meter"><div class="meter-label"><span>DISK</span><b id="perfDisk">41%</b></div><span class="meter-bar"><i id="barDisk" class="amber-bar"></i></span></div>
+            </article>
+          </div>
+          <article class="glass-card info-card"><span class="stat-icon purple"><svg class="icon"><use href="#i-bolt"></use></svg></span><div><h3>Performance tweaks</h3><p>Use the Tweaks page to enable Game Mode, High Performance power plan, clean startup, GPU scheduling and Storage Sense.</p><button class="btn btn-ghost btn-sm" data-nav="tweaks">Open tweaks <svg class="icon"><use href="#i-chevron"></use></svg></button></div></article>
+        </section>
+
+        <!-- WINDOWS ACTIVATION -->
+        <section class="page" id="page-activation">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Windows</span><h1>Windows activation</h1><p>Check your license and open the official activation tools.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="refreshActivation"><svg class="icon"><use href="#i-refresh"></use></svg>Refresh</button></div>
+          </div>
+          <div class="status-panel glass-card">
+            <span class="status-icon"><svg class="icon"><use href="#i-check"></use></svg></span>
+            <div class="status-copy"><span class="eyebrow">License status</span><h2 id="activationTitle">Checking Windows license…</h2><p id="activationDetail">Reading activation information from your system.</p></div>
+            <span class="status-badge" id="activationBadge">—</span>
+          </div>
+          <div class="kv-grid">
+            <div class="glass-card kv-card"><span>Edition</span><b id="activationName">Windows</b></div>
+            <div class="glass-card kv-card"><span>Product key</span><b id="activationKey">—</b></div>
+            <div class="glass-card kv-card"><span>License code</span><b id="activationStatus">—</b></div>
+            <div class="glass-card kv-card"><span>Expiration</span><b id="activationExpiration">—</b></div>
+          </div>
+          <div class="tool-grid">
+            <button class="btn btn-primary" data-open-settings="activation"><svg class="icon"><use href="#i-settings"></use></svg>Open activation settings</button>
+            <button class="btn btn-ghost" data-open-settings="activation"><svg class="icon"><use href="#i-check"></use></svg>Change product key</button>
+            <button class="btn btn-ghost" data-open-settings="troubleshoot"><svg class="icon"><use href="#i-sparkles"></use></svg>Activation troubleshooter</button>
+          </div>
+          <div class="notice"><svg class="icon"><use href="#i-info"></use></svg><span>Activation is handled by Microsoft. This page only reads status and opens the built-in Windows tools.</span></div>
+        </section>
+
+        <!-- QUICK WINDOWS SETUP -->
+        <section class="page" id="page-quicksetup">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Windows</span><h1>Quick Windows setup</h1><p>Apply a balanced set of safe defaults in one click.</p></div>
+          </div>
+          <div class="two-col">
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">One click</span><h2>Recommended defaults</h2></div></div>
+              <p class="about-text">These are the same practical settings power users apply after installing Windows.</p>
+              <ul class="setup-list">
+                <li>Dark mode for apps and system</li>
+                <li>Show file extensions</li>
+                <li>Show hidden files</li>
+                <li>Enable Storage Sense</li>
+                <li>High performance power plan</li>
+              </ul>
+              <button class="btn btn-primary btn-block" id="runQuickSetup"><svg class="icon"><use href="#i-bolt"></use></svg>Apply quick setup</button>
+            </article>
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">More controls</span><h2>Open Windows pages</h2></div></div>
+              <div class="tool-grid vertical">
+                <button class="btn btn-ghost" data-open-settings="personalization"><svg class="icon"><use href="#i-moon"></use></svg>Personalization</button>
+                <button class="btn btn-ghost" data-open-settings="system"><svg class="icon"><use href="#i-monitor"></use></svg>System</button>
+                <button class="btn btn-ghost" data-open-settings="power"><svg class="icon"><use href="#i-bolt"></use></svg>Power &amp; battery</button>
+                <button class="btn btn-ghost" data-open-settings="privacy"><svg class="icon"><use href="#i-shield"></use></svg>Privacy</button>
+              </div>
+              <div class="notice" style="margin-top:12px;"><svg class="icon"><use href="#i-info"></use></svg><span>Some Explorer changes need a restart to become visible.</span></div>
+              <button class="btn btn-ghost btn-block" id="restartExplorerQuick" style="margin-top:10px;"><svg class="icon"><use href="#i-refresh"></use></svg>Restart Explorer</button>
+            </article>
+          </div>
+        </section>
+
+        <!-- WINDOWS UPDATE -->
+        <section class="page" id="page-updates">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Windows</span><h1>Windows Update</h1><p>See the latest installed update and control update pauses.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="refreshUpdateStatus"><svg class="icon"><use href="#i-refresh"></use></svg>Refresh</button></div>
+          </div>
+          <div class="status-panel glass-card">
+            <span class="status-icon"><svg class="icon"><use href="#i-refresh"></use></svg></span>
+            <div class="status-copy"><span class="eyebrow">Last installed update</span><h2 id="updateTitle">Checking update history…</h2><p id="updateDetail">Reading Windows Update information.</p></div>
+            <span class="status-badge" id="updateBadge">—</span>
+          </div>
+          <div class="kv-grid">
+            <div class="glass-card kv-card"><span>Hotfix ID</span><b id="updateHotfix">—</b></div>
+            <div class="glass-card kv-card"><span>Installed on</span><b id="updateInstalled">—</b></div>
+            <div class="glass-card kv-card"><span>Last successful scan</span><b id="updateScan">—</b></div>
+          </div>
+          <div class="tool-grid">
+            <button class="btn btn-primary" data-open-settings="windowsupdate-action"><svg class="icon"><use href="#i-refresh"></use></svg>Check for updates</button>
+            <button class="btn btn-ghost" data-open-settings="windowsupdate"><svg class="icon"><use href="#i-settings"></use></svg>Update settings</button>
+            <button class="btn btn-ghost" id="pauseUpdates"><svg class="icon"><use href="#i-clock"></use></svg>Pause 7 days</button>
+            <button class="btn btn-ghost" id="resumeUpdates"><svg class="icon"><use href="#i-check"></use></svg>Resume updates</button>
+          </div>
+          <div class="notice"><svg class="icon"><use href="#i-info"></use></svg><span>Downloading and installing updates is controlled by Windows Update. Pausing requires administrator rights.</span></div>
+        </section>
+
+        <!-- SYSTEM & RECOVERY -->
+        <section class="page" id="page-recovery">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Windows</span><h1>System &amp; Recovery</h1><p>Restore points and the built-in recovery tools.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="refreshRestorePoints"><svg class="icon"><use href="#i-refresh"></use></svg>Refresh</button></div>
+          </div>
+          <div class="two-col">
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">Restore points</span><h2>Recent checkpoints</h2></div></div>
+              <div class="restore-list" id="restorePoints"><div class="restore-empty">Loading restore points…</div></div>
+              <button class="btn btn-primary btn-block" id="createRestorePointPage"><svg class="icon"><use href="#i-shield"></use></svg>Create restore point</button>
+            </article>
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">Recovery tools</span><h2>Repair options</h2></div></div>
+              <div class="tool-grid vertical">
+                <button class="btn btn-ghost" data-recovery-tool="systemRestore"><svg class="icon"><use href="#i-clock"></use></svg>System Restore</button>
+                <button class="btn btn-ghost" data-recovery-tool="diskCleanup"><svg class="icon"><use href="#i-trash"></use></svg>Disk Cleanup</button>
+                <button class="btn btn-ghost" data-recovery-tool="advancedStartup"><svg class="icon"><use href="#i-refresh"></use></svg>Advanced Startup</button>
+                <button class="btn btn-ghost" data-recovery-tool="commandPrompt"><svg class="icon"><use href="#i-command"></use></svg>Command Prompt</button>
+                <button class="btn btn-ghost" data-open-settings="recovery"><svg class="icon"><use href="#i-settings"></use></svg>Recovery settings</button>
+              </div>
+              <div class="notice" style="margin-top:12px;"><svg class="icon"><use href="#i-info"></use></svg><span>Advanced Startup restarts the PC in 10 seconds. Save your work first.</span></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- PRIVACY -->
+        <section class="page" id="page-privacy">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Privacy</span><h1>Stop the spying</h1><p>Disable tracking, ads and background data collection.</p></div>
+          </div>
+          <div class="privacy-score glass-card">
+            <svg class="big-ring" viewBox="0 0 140 140"><circle class="ring-bg" cx="70" cy="70" r="64"/><circle class="ring-fg" id="scoreRing" cx="70" cy="70" r="64"/></svg>
+            <div class="privacy-score-copy"><span class="eyebrow">Privacy score</span><b id="privacyScore">0%</b><p id="privacyHint">Enable recommended tweaks to improve your score.</p></div>
+          </div>
+          <div class="tweak-grid" id="privacyGrid"></div>
+        </section>
+
+        <!-- UWP APPS -->
+        <section class="page" id="page-uwp">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">UWP Apps</span><h1>Manage UWP applications</h1><p>Installed modern Windows apps (Microsoft Store). Remove unwanted bloatware.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="refreshUwp"><svg class="icon"><use href="#i-refresh"></use></svg>Refresh list</button><button class="btn btn-danger" id="removeBloatware"><svg class="icon"><use href="#i-trash"></use></svg>Remove bloatware</button></div>
+          </div>
+          <div class="notice"><svg class="icon"><use href="#i-info"></use></svg><span>Remove Outlook, Feedback Hub, Xbox, Copilot and other bloatware. Run as administrator to remove apps for all users. System-critical apps are hidden.</span></div>
+          <div class="tweak-grid" id="uwpList" style="grid-template-columns:1fr;gap:10px;margin-top:10px;"></div>
+          <div class="empty-state" id="uwpEmpty" hidden><svg class="icon"><use href="#i-search"></use></svg><b>Loading…</b><span>Fetching UWP apps list…</span></div>
+        </section>
+
+        <!-- PROGRAMS -->
+        <section class="page" id="page-programs">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Programs</span><h1>Installed programs (Win32)</h1><p>Classic desktop software. Uninstall via its standard uninstaller.</p></div>
+            <div class="head-actions"><button class="btn btn-ghost" id="refreshPrograms"><svg class="icon"><use href="#i-refresh"></use></svg>Refresh list</button></div>
+          </div>
+          <div class="notice"><svg class="icon"><use href="#i-info"></use></svg><span>Uninstalling starts the vendor's own uninstaller. You may need administrator rights.</span></div>
+          <div class="tweak-grid" id="programsList" style="grid-template-columns:1fr;gap:10px;margin-top:10px;"></div>
+        </section>
+
+        <!-- PRESETS -->
+        <section class="page" id="page-presets">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Presets</span><h1>One click. Done.</h1><p>Ready-made sets of tweaks for common scenarios.</p></div>
+          </div>
+          <div class="preset-grid">
+            <article class="glass-card preset-card" data-preset="quiet"><span class="preset-icon purple"><svg class="icon"><use href="#i-moon"></use></svg></span><h3>Quiet system</h3><p>Disable animations, widgets, ads, telemetry and Copilot.</p><span class="preset-meta">5 tweaks</span></article>
+            <article class="glass-card preset-card" data-preset="gaming"><span class="preset-icon cyan"><svg class="icon"><use href="#i-bolt"></use></svg></span><h3>Gaming mode</h3><p>Game Mode, maximum power, clean startup, fewer animations.</p><span class="preset-meta">4 tweaks</span></article>
+            <article class="glass-card preset-card" data-preset="privacy"><span class="preset-icon pink"><svg class="icon"><use href="#i-shield"></use></svg></span><h3>Maximum privacy</h3><p>Telemetry, ads, location, Cortana, timeline and Copilot.</p><span class="preset-meta">6 tweaks</span></article>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="page" id="page-settings">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">Settings</span><h1>Appearance</h1><p>Decorate the window and pick a mood. Everything is saved automatically.</p></div>
+          </div>
+          <div class="about-grid">
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">Vines</span><h2>Overgrown decoration</h2></div></div>
+              <p class="about-text">Vines appear only in the Knight theme. Hide the greenery you do not need — the little knight always stays.</p>
+              <label class="setting-row">
+                <span><b>Side vines</b><small>Left and right edges</small></span>
+                <input type="checkbox" id="vineSides" checked /><span class="switch"></span>
+              </label>
+              <label class="setting-row">
+                <span><b>Top vines</b><small>Along the title bar</small></span>
+                <input type="checkbox" id="vineTop" checked /><span class="switch"></span>
+              </label>
+              <label class="setting-row">
+                <span><b>Bottom vines</b><small>Lower corners and center</small></span>
+                <input type="checkbox" id="vineBottom" checked /><span class="switch"></span>
+              </label>
+            </article>
+
+            <article class="glass-card settings-card">
+              <div class="card-head"><div><span class="eyebrow">Themes</span><h2>Color & mood</h2></div></div>
+              <div class="theme-grid">
+                <button class="theme-card" data-theme-choice="dark"><span class="theme-swatch sw-dark"></span><b>Dark</b></button>
+                <button class="theme-card" data-theme-choice="light"><span class="theme-swatch sw-light"></span><b>Light</b></button>
+                <button class="theme-card" data-theme-choice="red"><span class="theme-swatch sw-red"></span><b>Red</b></button>
+                <button class="theme-card" data-theme-choice="yellow"><span class="theme-swatch sw-yellow"></span><b>Yellow</b></button>
+                <button class="theme-card" data-theme-choice="green"><span class="theme-swatch sw-green"></span><b>Green</b></button>
+                <button class="theme-card" data-theme-choice="medieval"><span class="theme-swatch sw-medieval"></span><b>Knight</b></button>
+              </div>
+              <p class="about-text" style="margin-top:12px;">Knight theme turns the window into an old castle painting with stone walls and banners.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="page" id="page-about">
+          <div class="page-head compact">
+            <div class="page-head-copy"><span class="eyebrow">About</span><h1>Al2zTweaker</h1><p>Liquid-glass Windows tweaker with UWP removal. Version 1.0.0.</p></div>
+          </div>
+          <div class="about-grid">
+            <article class="glass-card about-card">
+              <div class="card-head"><div><span class="eyebrow">System</span><h2>Your machine</h2></div></div>
+              <div class="about-row"><span>Operating system</span><b id="osInfo">Windows</b></div>
+              <div class="about-row"><span>Permissions</span><b id="adminStatus" class="status-item status-muted">Ordinary user</b></div>
+              <div class="about-row"><span>App version</span><b>1.0.0</b></div>
+            </article>
+            <article class="glass-card about-card">
+              <div class="card-head"><div><span class="eyebrow">Maintenance</span><h2>Quick maintenance</h2></div></div>
+              <p class="about-text">Create a restore point before making changes, or reset all tweaks to their default state.</p>
+              <button class="btn btn-ghost btn-block" id="aboutApply"><svg class="icon"><use href="#i-sparkles"></use></svg>Apply recommended tweaks</button>
+              <button class="btn btn-ghost btn-block" id="aboutReset"><svg class="icon"><use href="#i-refresh"></use></svg>Reset all tweaks</button>
+            </article>
+          </div>
+          <div class="about-foot">Made by Al2z · Al2zTweaker is free and open source.</div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ COMMAND PALETTE ============ -->
+  <div class="overlay" id="commandOverlay" hidden>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-label="Command palette">
+      <label class="command-search"><svg class="icon"><use href="#i-search"></use></svg><input id="commandInput" type="text" placeholder="Search pages and tweaks…" autocomplete="off" spellcheck="false" /><kbd>ESC</kbd></label>
+      <div class="command-list" id="commandList"></div>
+      <div class="command-foot">↑ ↓ to navigate · Enter to select</div>
+    </div>
+  </div>
+
+  <!-- ============ MEDIEVAL CASTLE PAINTING ============ -->
+  <div class="scene-medieval" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="ms-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#171d31"/><stop offset=".55" stop-color="#3c3350"/><stop offset="1" stop-color="#8b6247"/>
+        </linearGradient>
+        <radialGradient id="ms-glow"><stop offset="0" stop-color="#ffe1a8" stop-opacity=".65"/><stop offset="1" stop-color="#ffe1a8" stop-opacity="0"/></radialGradient>
+        <linearGradient id="ms-stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d5c4d"/><stop offset="1" stop-color="#3a312b"/></linearGradient>
+        <linearGradient id="ms-flag" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a82c3f"/><stop offset="1" stop-color="#5f1524"/></linearGradient>
+        <linearGradient id="ms-fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8b59a" stop-opacity="0"/><stop offset="1" stop-color="#c8b59a" stop-opacity=".28"/></linearGradient>
+        <pattern id="ms-stones" width="120" height="52" patternUnits="userSpaceOnUse">
+          <rect width="120" height="52" fill="#4a4038"/>
+          <path d="M0 0h120M0 26h120M60 0v26M0 26v26M120 26v26" stroke="#2b2521" stroke-width="3" fill="none"/>
+          <rect x="4" y="4" width="52" height="18" rx="3" fill="#6b5b4c" opacity=".55"/>
+          <rect x="64" y="30" width="52" height="18" rx="3" fill="#5a4c41" opacity=".5"/>
+        </pattern>
+      </defs>
+
+      <rect width="1200" height="800" fill="url(#ms-sky)"/>
+      <circle cx="880" cy="160" r="150" fill="url(#ms-glow)" opacity=".55"/>
+      <circle cx="880" cy="160" r="44" fill="#f4dca6" opacity=".9"/>
+      <g fill="#d8c8ad" opacity=".55">
+        <circle cx="120" cy="90" r="2"/><circle cx="240" cy="150" r="1.6"/><circle cx="420" cy="70" r="2"/><circle cx="1060" cy="110" r="1.8"/><circle cx="980" cy="250" r="1.4"/>
+      </g>
+
+      <path d="M0 430 L120 330 220 410 340 300 470 420 600 340 760 440 900 360 1040 430 1200 340 V800 H0Z" fill="#2b2b3d" opacity=".75"/>
+      <path d="M0 520 Q200 440 400 510 T800 500 T1200 480 V800 H0Z" fill="#242431" opacity=".85"/>
+
+      <!-- castle -->
+      <g>
+        <rect x="360" y="270" width="120" height="330" fill="url(#ms-stone)"/>
+        <rect x="720" y="230" width="140" height="370" fill="url(#ms-stone)"/>
+        <rect x="470" y="310" width="260" height="290" fill="url(#ms-stone)"/>
+        <path d="M350 270h140l-14-34h-112z" fill="#2f2a35"/>
+        <path d="M710 230h160l-18-40h-124z" fill="#2f2a35"/>
+        <path d="M460 310h280l-20-42h-240z" fill="#35303a"/>
+        <g fill="#574a3f">
+          <rect x="360" y="250" width="18" height="22"/><rect x="396" y="250" width="18" height="22"/><rect x="432" y="250" width="18" height="22"/>
+          <rect x="720" y="210" width="20" height="24"/><rect x="760" y="210" width="20" height="24"/><rect x="800" y="210" width="20" height="24"/><rect x="840" y="210" width="20" height="24"/>
+          <rect x="470" y="290" width="20" height="22"/><rect x="510" y="290" width="20" height="22"/><rect x="670" y="290" width="20" height="22"/><rect x="710" y="290" width="20" height="22"/>
+        </g>
+        <g fill="#1c1a22" stroke="#8a7255" stroke-width="3">
+          <path d="M398 330q22-24 44 0v40h-44z"/>
+          <path d="M768 300q26-28 52 0v46h-52z"/>
+          <path d="M520 360q30-32 60 0v52h-60z"/>
+          <path d="M620 360q30-32 60 0v52h-60z"/>
+          <path d="M570 455q30-34 60 0v70h-60z"/>
+        </g>
+        <g fill="#e8b36a" opacity=".75">
+          <rect x="412" y="344" width="16" height="20" rx="6"/>
+          <rect x="784" y="316" width="20" height="24" rx="7"/>
+          <rect x="538" y="376" width="24" height="28" rx="8"/>
+          <rect x="638" y="376" width="24" height="28" rx="8"/>
+          <rect x="588" y="472" width="24" height="30" rx="8"/>
+        </g>
+        <g stroke="#c9a66a" stroke-width="3">
+          <path d="M420 236v-56"/><path d="M790 190v-64"/><path d="M600 268v-70"/>
+        </g>
+        <path d="M422 182q34 10 66 0l-10 34h-46z" fill="url(#ms-flag)"/>
+        <path d="M792 128q34 10 66 0l-10 34h-46z" fill="url(#ms-flag)"/>
+        <path d="M602 200q34 10 66 0l-10 34h-46z" fill="#b8893f"/>
+        <path d="M560 600v-70q0-40 40-40t40 40v70z" fill="#171418" stroke="#2b2521" stroke-width="6"/>
+        <g stroke="#6d5c4d" stroke-width="4"><path d="M575 492v108M590 492v108M605 492v108M620 492v108"/></g>
+      </g>
+
+      <rect y="420" width="1200" height="200" fill="url(#ms-fog)"/>
+
+      <!-- foreground stone wall -->
+      <rect y="620" width="1200" height="180" fill="url(#ms-stones)"/>
+      <path d="M500 800v-78q0-62 100-62t100 62v78z" fill="#171417" stroke="#2b2521" stroke-width="8"/>
+      <g stroke="#7a6550" stroke-width="4" opacity=".8"><path d="M520 670v130M545 662v138M570 658v142M600 656v144M630 658v142M655 662v138M680 670v130"/></g>
+
+      <!-- banners -->
+      <g>
+        <path d="M250 620v120l28-22 28 22V620z" fill="url(#ms-flag)"/>
+        <path d="M894 620v120l28-22 28 22V620z" fill="#b8893f"/>
+      </g>
+
+      <!-- torches -->
+      <g>
+        <circle cx="330" cy="690" r="46" fill="url(#ms-glow)" opacity=".7"/>
+        <path d="M330 706v-16" stroke="#4a3626" stroke-width="8"/>
+        <path d="M330 690q-14-10 0-30 14 20 0 30z" fill="#ffb347"/>
+        <circle cx="870" cy="690" r="46" fill="url(#ms-glow)" opacity=".7"/>
+        <path d="M870 706v-16" stroke="#4a3626" stroke-width="8"/>
+        <path d="M870 690q-14-10 0-30 14 20 0 30z" fill="#ffb347"/>
+      </g>
+
+      <!-- knight on horseback silhouette -->
+      <g fill="#14121a" opacity=".92">
+        <ellipse cx="170" cy="612" rx="62" ry="22"/>
+        <path d="M122 612l-10 62h14l14-56M150 616l-4 58h14l10-56M190 616l8 58h14l-6-60M212 610l14 60h14l-18-64z"/>
+        <path d="M216 600q22-8 32-42l10-26 16 8-8 30q-10 34-34 44z"/>
+        <path d="M246 532l14-16 16 8-10 18z"/>
+        <path d="M158 590q-8-34 18-48l24-4q18 12 14 44z"/>
+        <circle cx="183" cy="530" r="13"/>
+        <path d="M183 518q-10-12 4-20 14 8 4 20z"/>
+        <path d="M204 548l84-46" stroke="#14121a" stroke-width="5"/>
+      </g>
+
+      <rect width="1200" height="800" fill="url(#ms-stones)" opacity=".04"/>
+    </svg>
+  </div>
+
+  <!-- ============ MEDIEVAL VINES ============ -->
+  <div class="vine-overlay" aria-hidden="true">
+    <div class="vine-spot vine-tl"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-tr"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-bl"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-br"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-tc"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-bc"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-ml"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+    <div class="vine-spot vine-mr"><svg class="vine"><use href="#vine-cluster"></use></svg></div>
+  </div>
+
+  <!-- ============ LITTLE KNIGHT ============ -->
+  <button class="knight" id="knightBtn" title="Click the knight — PLIM!" aria-label="Click the knight to hear a sound">
+    <svg viewBox="0 0 80 80" aria-hidden="true">
+      <defs>
+        <linearGradient id="kn-steel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f6f8ff"/><stop offset=".48" stop-color="#aeb8cf"/><stop offset="1" stop-color="#4a5368"/>
+        </linearGradient>
+        <linearGradient id="kn-steel-dark" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8f99b0"/><stop offset="1" stop-color="#3c4458"/>
+        </linearGradient>
+        <linearGradient id="kn-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff1b8"/><stop offset=".5" stop-color="#d9b96a"/><stop offset="1" stop-color="#8a6427"/>
+        </linearGradient>
+        <linearGradient id="kn-cape" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#c8445e"/><stop offset="1" stop-color="#641627"/>
+        </linearGradient>
+        <radialGradient id="kn-aura">
+          <stop offset="0" stop-color="#ffe6a0" stop-opacity=".45"/><stop offset="1" stop-color="#ffe6a0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="40" cy="42" r="34" fill="url(#kn-aura)"/>
+      <ellipse cx="40" cy="73" rx="21" ry="3.5" fill="rgba(0,0,0,.4)"/>
+
+      <path d="M24 37 C13 44 10 60 15 69 L31 65 L34 38 Z" fill="url(#kn-cape)" stroke="#5b1424" stroke-width="1.2"/>
+      <path d="M56 37 C67 44 70 60 65 69 L49 65 L46 38 Z" fill="url(#kn-cape)" stroke="#5b1424" stroke-width="1.2" opacity=".9"/>
+
+      <path d="M31 57h8l1 12H30z" fill="url(#kn-steel-dark)" stroke="#394155" stroke-width="1"/>
+      <path d="M43 57h8l1 12H42z" fill="url(#kn-steel-dark)" stroke="#394155" stroke-width="1"/>
+      <path d="M29 67h11v4H29z" fill="url(#kn-gold)"/>
+      <path d="M42 67h11v4H42z" fill="url(#kn-gold)"/>
+
+      <path d="M26 35 Q40 29 54 35 L57 56 Q40 63 23 56 Z" fill="url(#kn-steel)" stroke="#414a60" stroke-width="1.4"/>
+      <path d="M24 51 Q40 57 56 51" fill="none" stroke="url(#kn-gold)" stroke-width="3"/>
+      <path d="M38 40h4v13h-4z" fill="url(#kn-gold)" opacity=".9"/>
+      <path d="M34 44h12" stroke="url(#kn-gold)" stroke-width="2.5"/>
+      <path d="M22 35 Q16 36 16 43 L24 45 L28 37 Z" fill="url(#kn-steel)" stroke="#414a60" stroke-width="1.2"/>
+      <path d="M58 35 Q64 36 64 43 L56 45 L52 37 Z" fill="url(#kn-steel)" stroke="#414a60" stroke-width="1.2"/>
+
+      <path d="M27 19 Q40 9 53 19 L55 34 Q40 40 25 34 Z" fill="url(#kn-steel)" stroke="#414a60" stroke-width="1.4"/>
+      <path d="M28 24 Q40 20 52 24 L52 28 Q40 25 28 28 Z" fill="#252b3b"/>
+      <path d="M30 30h20" stroke="#252b3b" stroke-width="2"/>
+      <path d="M39 29v6" stroke="url(#kn-gold)" stroke-width="2"/>
+      <path d="M40 11 C37 3 48 1 55 5 C49 6 46 9 46 13" fill="none" stroke="url(#kn-cape)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M35 37 Q40 40 45 37" fill="none" stroke="url(#kn-gold)" stroke-width="2"/>
+      <circle cx="27" cy="21" r="1.4" fill="url(#kn-gold)"/><circle cx="53" cy="21" r="1.4" fill="url(#kn-gold)"/>
+
+      <path d="M10 39 L27 35 L27 57 Q18 63 10 57 Z" fill="url(#kn-gold)" stroke="#7a5822" stroke-width="1.2"/>
+      <path d="M13 42 L24 39 L24 55 Q18 59 13 55 Z" fill="#8e2237"/>
+      <path d="M18.5 41v15M13 48h11" stroke="url(#kn-gold)" stroke-width="2.2"/>
+      <circle cx="18.5" cy="48" r="2.6" fill="url(#kn-gold)"/>
+
+      <path d="M63 11 L67 15 L46 45 L42 41 Z" fill="url(#kn-steel)" stroke="#414a60" stroke-width="1"/>
+      <path d="M63 11 L67 15" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>
+      <path d="M40 40 L50 48" stroke="url(#kn-gold)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M43 46 L39 51" stroke="#7a5822" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="38" cy="52" r="2.4" fill="url(#kn-gold)"/>
+
+      <path d="M71 25l1.4 3.4L76 30l-3.6 1.4L71 35l-1.4-3.6L66 30l3.6-1.6z" fill="#ffe08a" opacity=".85"/>
+      <circle cx="12" cy="27" r="1.6" fill="#ffe08a"/>
+    </svg>
+    <span class="knight-hint">PLIM!</span>
+  </button>
+
+  <div class="toast-stack" id="toastStack"></div>
+  <script src="app.js"></script>
+</body>
+</html>
